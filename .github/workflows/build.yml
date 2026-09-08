@@ -21,17 +21,16 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk ccache libffi-dev libssl-dev
+          sudo apt-get install -y openjdk-17-jdk ccache libffi-dev libssl-dev zip unzip
           pip install --upgrade pip setuptools buildozer cython==0.29.33
 
-      - name: Accept Android SDK licenses
+      - name: Build APK with Buildozer
         run: |
+          # Αυτόματη αποδοχή όλων των Android SDK licenses
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-
-      - name: Build APK
-        run: |
+          
+          # Εκτέλεση buildozer με αυτόματη αποδοχή (yes)
           yes | buildozer -v android debug
 
       - name: Upload APK
@@ -39,5 +38,6 @@ jobs:
         with:
           name: EuroPredictions-APK
           path: bin/*.apk
+          
           
           
