@@ -1,52 +1,19 @@
-name: Build Android APK
+[app]
+title = My App
+package.name = myapp
+package.domain = org.test
+source.dir =.
+source.include_exts = py,png,jpg,kv,atlas
+version = 0.1
+requirements = python3,kivy
+orientation = portrait
+fullscreen = 0
+android.api = 31
+android.minapi = 21
+android.sdk_path =
+android.ndk_path =
+android.arch = arm64-v8a
 
-on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Create Swap Space (Fix Out Of Memory)
-        run: |
-          sudo fallocate -l 6G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          free -h
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk ccache libffi-dev libssl-dev \
-            autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev \
-            libtinfo5 cmake gettext lld zip unzip
-          pip install --upgrade pip setuptools buildozer cython==0.29.33
-
-      - name: Accept Android SDK licenses
-        run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-
-      - name: Build APK with restricted memory & single arch
-        run: |
-          export MAKEFLAGS="-j1"
-          yes | buildozer -v android debug --arch=arm64-v8a
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: EuroPredictions-APK
-          path: bin/*.apk
-          
+[buildozer]
+log_level = 2
+warn_on_root = 1
