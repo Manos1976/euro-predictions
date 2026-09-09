@@ -4,8 +4,8 @@ package.name = myapp
 package.domain = org.test
 source.dir =.
 source.include_exts = py,png,jpg,kv,atlas
-version = 0.1
-requirements = python3,kivy
+version = 0.1.0
+requirements = python3==3.10.13,kivy
 orientation = portrait
 fullscreen = 0
 android.api = 31
