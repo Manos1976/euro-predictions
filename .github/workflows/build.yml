@@ -5,18 +5,18 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Build with Buildozer
-      uses: ArtemSBulgakov/buildozer-action@v1
-      with:
-        command: buildozer android debug
-        buildozer_version: stable
-        
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: apk
-        path: bin/*.apk
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build with Buildozer
+        uses: nikhilnijan/buildozer-action@v1.4.0
+        with:
+          buildozer_version: stable
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: euro-predictions-apk
+          path: bin/*.apk
