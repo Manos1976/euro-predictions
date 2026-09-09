@@ -1,19 +1,5 @@
-[app]
-title = My App
-package.name = myapp
-package.domain = org.test
-source.dir =.
-source.include_exts = py,png,jpg,kv,atlas
-version = 0.1.0
-requirements = python3==3.10.13,kivy
-orientation = portrait
-fullscreen = 0
-android.api = 31
+android.api = 33
 android.minapi = 21
-android.sdk_path =
-android.ndk_path =
-android.arch = arm64-v8a
-
-[buildozer]
-log_level = 2
-warn_on_root = 1
+android.sdk_path = 
+android.ndk_path = 
+android.accept_sdk_license = True
